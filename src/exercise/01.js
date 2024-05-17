@@ -6,16 +6,13 @@ import * as React from 'react'
 function Counter({initialCount = 0, step = 1}) {
  
   //accepts the current state and the action (dispatch) this is the "setSomething" stuff
-  const countReducer = (state, newState) => {
-    return newState;
+  const countReducer = (count, step) => {
+    return count + step;
   }
 
   //receives a function and a initialValue
-  const [count, setCount] = React.useReducer(countReducer, initialCount)
-
- 
-  
-  const increment = () => setCount(count + step)
+  const [count, changeCount] = React.useReducer(countReducer, initialCount)
+  const increment = () => changeCount(step)
   return <button onClick={increment}>{count}</button>
 }
 
