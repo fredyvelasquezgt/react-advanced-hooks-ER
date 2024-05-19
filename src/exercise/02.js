@@ -31,6 +31,16 @@ function asyncReducer(state, action) {
   }
 }
 
+function useAsync() {
+  const [state, dispatch] = React.useReducer(pokemonInfoReducer, {
+    status: pokemonName ? 'pending' : 'idle',
+    // 🐨 this will need to be "data" instead of "pokemon"
+    data: null,
+    error: null,
+  })
+
+}
+
 function PokemonInfo({pokemonName}) {
   // 🐨 move all the code between the lines into a new useAsync function.
   // 💰 look below to see how the useAsync hook is supposed to be called
@@ -44,12 +54,7 @@ function PokemonInfo({pokemonName}) {
 
   }
   
-  const [state, dispatch] = React.useReducer(pokemonInfoReducer, {
-    status: pokemonName ? 'pending' : 'idle',
-    // 🐨 this will need to be "data" instead of "pokemon"
-    data: null,
-    error: null,
-  })
+
 
   React.useEffect(() => {
     // 💰 this first early-exit bit is a little tricky, so let me give you a hint:
