@@ -53,10 +53,10 @@ function PokemonInfo({pokemonName}) {
 
   React.useEffect(() => {
     // 💰 this first early-exit bit is a little tricky, so let me give you a hint:
-    // const promise = asyncCallback()
-    // if (!promise) {
-    //   return
-    // }
+   const promise = asyncCallback()
+   if (!promise) {
+     return
+    }
     // then you can dispatch and handle the promise etc...
     if (!pokemonName) {
       return
