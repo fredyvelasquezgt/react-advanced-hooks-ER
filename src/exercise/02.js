@@ -40,6 +40,10 @@ function PokemonInfo({pokemonName}) {
 
   // -------------------------- start --------------------------
 
+  function asyncCallback(asyncCallback, initialState, dependencies) {
+    
+  }
+  
   const [state, dispatch] = React.useReducer(pokemonInfoReducer, {
     status: pokemonName ? 'pending' : 'idle',
     // 🐨 this will need to be "data" instead of "pokemon"
