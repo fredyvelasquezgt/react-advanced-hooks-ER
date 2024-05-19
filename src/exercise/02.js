@@ -10,8 +10,8 @@ import {
   PokemonErrorBoundary,
 } from '../pokemon'
 
-// 🐨 this is going to be our generic asyncReducer
-function pokemonInfoReducer(state, action) {
+// 🐨 this is going to be our generic 
+function asyncReducer(state, action) {
   switch (action.type) {
     case 'pending': {
       // 🐨 replace "pokemon" with "data"
