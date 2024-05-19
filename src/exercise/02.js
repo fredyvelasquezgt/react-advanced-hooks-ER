@@ -31,13 +31,32 @@ function asyncReducer(state, action) {
   }
 }
 
-function useAsync() {
-  const [state, dispatch] = React.useReducer(pokemonInfoReducer, {
-    status: pokemonName ? 'pending' : 'idle',
-    // 🐨 this will need to be "data" instead of "pokemon"
+function useAsync(initialState) {
+  const [state, dispatch] = React.useReducer(asyncReducer, {
+    status:  'idle',
     data: null,
     error: null,
+    ...initialState
   })
+
+  React.useEffect(() => {
+   
+    if (!pokemonName) {
+      return
+    }
+    dispatch({type: 'pending'})
+    fetchPokemon(pokemonName).then(
+      pokemon => {
+        dispatch({type: 'resolved', pokemon})
+      },
+      error => {
+        dispatch({type: 'rejected', error})
+      },
+    )
+    // 🐨 you'll accept dependencies as an array and pass that here.
+    // 🐨 because of limitations with ESLint, you'll need to ignore
+    // the react-hooks/exhaustive-deps rule. We'll fix this in an extra credit.
+  }, [pokemonName])
 
 }
 
@@ -56,29 +75,7 @@ function PokemonInfo({pokemonName}) {
   
 
 
-  React.useEffect(() => {
-    // 💰 this first early-exit bit is a little tricky, so let me give you a hint:
-   const promise = asyncCallback()
-   if (!promise) {
-     return
-    }
-    // then you can dispatch and handle the promise etc...
-    if (!pokemonName) {
-      return
-    }
-    dispatch({type: 'pending'})
-    fetchPokemon(pokemonName).then(
-      pokemon => {
-        dispatch({type: 'resolved', pokemon})
-      },
-      error => {
-        dispatch({type: 'rejected', error})
-      },
-    )
-    // 🐨 you'll accept dependencies as an array and pass that here.
-    // 🐨 because of limitations with ESLint, you'll need to ignore
-    // the react-hooks/exhaustive-deps rule. We'll fix this in an extra credit.
-  }, [pokemonName])
+
   // --------------------------- end ---------------------------
 
   // 🐨 here's how you'll use the new useAsync hook you're writing:
